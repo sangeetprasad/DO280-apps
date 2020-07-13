@@ -1,0 +1,9 @@
+22  wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz
+   23  ls
+   24  tar xvf openshift-client-linux.tar.gz 
+   25  cp {oc,kubectl} /usr/local/bin
+   26  sudo cp {oc,kubectl} /usr/local/bin
+
+
+ git config credential.helper store
+
