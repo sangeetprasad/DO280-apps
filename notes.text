@@ -4,6 +4,7 @@
    25  cp {oc,kubectl} /usr/local/bin
    26  sudo cp {oc,kubectl} /usr/local/bin
 
+oc completion bash >> /etc/bash_completion.d/oc_completion
 
  git config credential.helper store
 
