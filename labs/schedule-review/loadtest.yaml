@@ -1,0 +1,107 @@
+apiVersion: v1
+items:
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: loadtest
+      app.kubernetes.io/component: loadtest
+      app.kubernetes.io/instance: loadtest
+    name: loadtest
+  spec:
+    lookupPolicy:
+      local: false
+    tags:
+    - annotations:
+        openshift.io/imported-from: quay.io/redhattraining/loadtest:v1.0
+      from:
+        kind: DockerImage
+        name: quay.io/redhattraining/loadtest:v1.0
+      generation: null
+      importPolicy: {}
+      name: v1.0
+      referencePolicy:
+        type: ""
+  status:
+    dockerImageRepository: ""
+- apiVersion: apps.openshift.io/v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: loadtest
+      app.kubernetes.io/component: loadtest
+      app.kubernetes.io/instance: loadtest
+    name: loadtest
+  spec:
+    replicas: 1
+    selector:
+      deploymentconfig: loadtest
+    strategy:
+      resources: {}
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          deploymentconfig: loadtest
+      spec:
+        containers:
+        - image: quay.io/redhattraining/loadtest:v1.0
+          name: loadtest
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "20Mi"
+        nodeSelector:
+          tier: silver        
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - loadtest
+        from:
+          kind: ImageStreamTag
+          name: loadtest:v1.0
+      type: ImageChange
+  status:
+    availableReplicas: 0
+    latestVersion: 0
+    observedGeneration: 0
+    replicas: 0
+    unavailableReplicas: 0
+    updatedReplicas: 0
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: loadtest
+      app.kubernetes.io/component: loadtest
+      app.kubernetes.io/instance: loadtest
+    name: loadtest
+  spec:
+    ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      deploymentconfig: loadtest
+  status:
+    loadBalancer: {}
+kind: List
+metadata: {}
