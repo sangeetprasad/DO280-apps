@@ -1,0 +1,93 @@
+apiVersion: v1
+items:
+- apiVersion: machine.openshift.io/v1beta1
+  kind: MachineSet
+  metadata:
+    creationTimestamp: "2020-08-02T07:32:37Z"
+    generation: 3
+    labels:
+      machine.openshift.io/cluster-api-cluster: ocp-mdxpjmoqrrgjkzv20-z25kt
+    name: ocp-mdxpjmoqrrgjkzv20-z25kt-worker-eu-central-1c
+    namespace: openshift-machine-api
+    resourceVersion: "596000"
+    selfLink: /apis/machine.openshift.io/v1beta1/namespaces/openshift-machine-api/machinesets/ocp-mdxpjmoqrrgjkzv20-z25kt-worker-eu-central-1c
+    uid: 56b21e44-d492-11ea-96c9-0af76e993d3c
+  spec:
+    replicas: 2
+    selector:
+      matchLabels:
+        machine.openshift.io/cluster-api-cluster: ocp-mdxpjmoqrrgjkzv20-z25kt
+        machine.openshift.io/cluster-api-machineset: ocp-mdxpjmoqrrgjkzv20-z25kt-worker-eu-central-1c
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          machine.openshift.io/cluster-api-cluster: ocp-mdxpjmoqrrgjkzv20-z25kt
+          machine.openshift.io/cluster-api-machine-role: worker
+          machine.openshift.io/cluster-api-machine-type: worker
+          machine.openshift.io/cluster-api-machineset: ocp-mdxpjmoqrrgjkzv20-z25kt-worker-eu-central-1c
+      spec:
+        labels:
+          env: prod
+        metadata:
+          creationTimestamp: null
+        providerSpec:
+          value:
+            ami:
+              id: ami-092b69120ecf915ed
+            apiVersion: awsproviderconfig.openshift.io/v1beta1
+            blockDevices:
+            - ebs:
+                iops: 0
+                volumeSize: 120
+                volumeType: gp2
+            credentialsSecret:
+              name: aws-cloud-credentials
+            deviceIndex: 0
+            iamInstanceProfile:
+              id: ocp-mdxpjmoqrrgjkzv20-z25kt-worker-profile
+            instanceType: m5.xlarge
+            kind: AWSMachineProviderConfig
+            metadata:
+              creationTimestamp: null
+            placement:
+              availabilityZone: eu-central-1c
+              region: eu-central-1
+            publicIp: null
+            securityGroups:
+            - filters:
+              - name: tag:Name
+                values:
+                - ocp-mdxpjmoqrrgjkzv20-z25kt-worker-sg
+            subnet:
+              filters:
+              - name: tag:Name
+                values:
+                - ocp-mdxpjmoqrrgjkzv20-z25kt-private-eu-central-1c
+            tags:
+            - name: kubernetes.io/cluster/ocp-mdxpjmoqrrgjkzv20-z25kt
+              value: owned
+            - name: Stack
+              value: project ocp-mdxpjmoqrrgjkzv200802
+            - name: course_name
+              value: do280
+            - name: env_type
+              value: ocp4-workshop
+            - name: guid
+              value: mdxpjmoqrrgjkzv200802
+            - name: owner
+              value: gls-platforms@redhat.com
+            - name: platform
+              value: gls
+            userDataSecret:
+              name: worker-user-data
+  status:
+    availableReplicas: 2
+    fullyLabeledReplicas: 2
+    observedGeneration: 3
+    readyReplicas: 2
+    replicas: 2
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""

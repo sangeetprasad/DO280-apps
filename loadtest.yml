@@ -1,0 +1,96 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+  creationTimestamp: "2020-08-09T04:41:29Z"
+  generation: 5
+  labels:
+    app: loadtest
+    app.kubernetes.io/component: loadtest
+    app.kubernetes.io/instance: loadtest
+  name: loadtest
+  namespace: schedule-review
+  resourceVersion: "567752"
+  selfLink: /apis/apps.openshift.io/v1/namespaces/schedule-review/deploymentconfigs/loadtest
+  uid: 9747f1a8-d9fa-11ea-9702-0a580a8100fe
+spec:
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector:
+    deploymentconfig: loadtest
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      annotations:
+        openshift.io/generated-by: OpenShiftNewApp
+      creationTimestamp: null
+      labels:
+        deploymentconfig: loadtest
+    spec:
+      containers:
+      - image: quay.io/redhattraining/loadtest@sha256:14038e28490705cd0e89a0d67b85a260aea332d281977a8930d5a67f24b6fd34
+        imagePullPolicy: IfNotPresent
+        name: loadtest
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 100m
+            memory: 20Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      nodeSelector:
+        tier: silver
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  test: false
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - loadtest
+      from:
+        kind: ImageStreamTag
+        name: loadtest:v1.0
+        namespace: schedule-review
+      lastTriggeredImage: quay.io/redhattraining/loadtest@sha256:14038e28490705cd0e89a0d67b85a260aea332d281977a8930d5a67f24b6fd34
+    type: ImageChange
+status:
+  availableReplicas: 2
+  conditions:
+  - lastTransitionTime: "2020-08-09T04:45:18Z"
+    lastUpdateTime: "2020-08-09T04:45:18Z"
+    message: Deployment config has minimum availability.
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2020-08-09T04:52:14Z"
+    lastUpdateTime: "2020-08-09T04:52:14Z"
+    message: replication controller "loadtest-3" is progressing
+    reason: ReplicationControllerUpdated
+    status: "True"
+    type: Progressing
+  details:
+    causes:
+    - type: ConfigChange
+    message: config change
+  latestVersion: 3
+  observedGeneration: 5
+  readyReplicas: 2
+  replicas: 3
+  unavailableReplicas: 1
+  updatedReplicas: 1

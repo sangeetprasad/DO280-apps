@@ -1,0 +1,66 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"hello-ts"},"name":"hello-ts","namespace":"schedule-pods-ts"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"hello-ts"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"hello-ts"}},"spec":{"containers":[{"image":"quay.io/redhattraining/hello-world-nginx:v1.0","imagePullPolicy":"Always","name":"hello-world-nginx","resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File"}],"dnsPolicy":"ClusterFirst","nodeSelector":{"client":"acme"},"restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30}}},"status":{}}
+  creationTimestamp: "2020-08-08T14:28:36Z"
+  generation: 1
+  labels:
+    app: hello-ts
+  name: hello-ts
+  namespace: schedule-pods-ts
+  resourceVersion: "521469"
+  selfLink: /apis/extensions/v1beta1/namespaces/schedule-pods-ts/deployments/hello-ts
+  uid: 7247de11-d983-11ea-8a34-0a85a650b872
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: hello-ts
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: hello-ts
+    spec:
+      containers:
+      - image: quay.io/redhattraining/hello-world-nginx:v1.0
+        imagePullPolicy: Always
+        name: hello-world-nginx
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      nodeSelector:
+        client: acme
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  conditions:
+  - lastTransitionTime: "2020-08-08T14:28:36Z"
+    lastUpdateTime: "2020-08-08T14:28:36Z"
+    message: Deployment does not have minimum availability.
+    reason: MinimumReplicasUnavailable
+    status: "False"
+    type: Available
+  - lastTransitionTime: "2020-08-08T14:38:37Z"
+    lastUpdateTime: "2020-08-08T14:38:37Z"
+    message: ReplicaSet "hello-ts-8bd47697c" has timed out progressing.
+    reason: ProgressDeadlineExceeded
+    status: "False"
+    type: Progressing
+  observedGeneration: 1
+  replicas: 1
+  unavailableReplicas: 1
+  updatedReplicas: 1

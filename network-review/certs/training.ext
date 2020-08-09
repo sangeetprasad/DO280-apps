@@ -1,0 +1,11 @@
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
+
+[alt_names]
+# Replace with your domain name (i.e. domain.example.com)
+DNS.1 = *.ocp-mdxpjmoqrrgjkzv200802.do280.rht-eu.nextcle.com
+
+# Replace with the content of apps.ocp-mdxpjmoqrrgjkzv200802.do280.rht-eu.nextcle.com
+DNS.2 = *.apps.ocp-mdxpjmoqrrgjkzv200802.do280.rht-eu.nextcle.com
