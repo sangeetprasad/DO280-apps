@@ -8,3 +8,4 @@ oc completion bash >> /etc/bash_completion.d/oc_completion
 
  git config credential.helper store
 
+ba486dc1c0ac973bb8256d679d3b251e
